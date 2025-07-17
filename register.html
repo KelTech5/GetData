@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register Page</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+    
+    #imagePreview {
+      display: none;
+      max-width: 120px;
+      max-height: 120px;
+      margin-bottom: 10px;
+      border-radius: 50%;
+      border: 3px solid #3b82f6;
+      object-fit: cover;
+    }
+      html,
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100%;
+        margin: 0;
+        padding: 60px 20px;
+        background: linear-gradient(to right, #e0f7fa, #ffffff);
+      }
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 0px;
+      }
+      .register-container {
+        background: #fff;
+        padding: 80px 40px;
+        border-radius: 30px;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 520px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 60px;
+      }
+      .register-container h2 {
+        margin-bottom: 25px;
+        color: #333;
+        font-size: 28px;
+        text-align: center;
+      }
+      .register-container form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .register-container input[type="text"],
+      .register-container input[type="email"],
+      .register-container input[type="tel"],
+      .register-container input[type="password"],
+      .register-container input[type="file"] {
+        width: 90%;
+        padding: 14px 16px;
+        margin: 10px 0;
+        border-radius: 14px;
+        border: 1px solid #ccc;
+        font-size: 15px;
+        transition: border-color 0.3s;
+      }
+      .register-container input:focus {
+        border-color: #3b82f6;
+        outline: none;
+      }
+      .register-container button {
+        width: 90%;
+        padding: 14px;
+        background: #3b82f6;
+        color: white;
+        border: none;
+        border-radius: 14px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.3s;
+        margin-top: 10px;
+      }
+      .register-container button:hover {
+        background: #2563eb;
+      }
+      .checkbox-container {
+        width: 90%;
+        text-align: left;
+        margin: 15px 0 10px;
+        font-size: 14px;
+      }
+      .back-home {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+      }
+      .back-home a {
+        background-color: #3b82f6;
+        color: white;
+        padding: 8px 16px;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 500;
+      }
+      .back-home a:hover {
+        background-color: #2563eb;
+      }
+    </style>
+    <script>
+      function togglePassword() {
+        const passFields = document.querySelectorAll("input[type='password']");
+        passFields.forEach((field) => {
+          field.type = field.type === "password" ? "text" : "password";
+        });
+      }
+
+       function previewImage(event) {
+    const output = document.getElementById('imagePreview');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = () => URL.revokeObjectURL(output.src);
+    output.style.display = 'block';
+  }
+    </script>
+  </head>
+  <body>
+    <div class="back-home">
+      <a href="index.html">&larr; Back to Home</a>
+    </div>
+
+    <div class="register-container">
+      <h2>Create Your Account</h2>
+      <form action="register.php" method="POST" enctype="multipart/form-data">
+        <input type="file" name="profile_image" accept="image/*" required />
+        <input type="text" name="fullname" placeholder="Full Name" required />
+        <input type="email" name="email" placeholder="Email Address" required />
+        <input type="tel" name="phone" placeholder="Phone Number" required />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          required
+        />
+        <input
+          type="password"
+          name="confirm_password"
+          placeholder="Confirm Password"
+          required
+        />
+        <div class="checkbox-container">
+          <label
+            ><input type="checkbox" onclick="togglePassword()" /> Show
+            Password</label
+          >
+        </div>
+        <button type="submit">Register</button>
+        <h4>Already have an Account!<a href="login.html">login</a></h4>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

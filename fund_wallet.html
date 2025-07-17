@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Credit Card Modal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="fundstyle.css" />
+    <script
+      src="https://kit.fontawesome.com/a2e0b5c56e.js"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      input.error {
+        border-color: #dc2626 !important;
+        box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.3);
+      }
+    </style>
+  </head>
+
+  <body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <section id="sidebar">
+      <a href="#" class="brand">
+        <i class="bx bx-home"></i>
+        <span class="text">Try</span>
+        <span class="text1">Data</span>
+      </a>
+      <ul class="side-menu top">
+        <li>
+          <a href="dashboard.php">
+            <i class="bx bxs-dashboard"></i>
+            <span class="text">Dashboard</span>
+          </a>
+        </li>
+        <li class="active">
+          <a href="fund_Wallet.html">
+            <i class="bx bx-wallet-alt"></i>
+            <span class="text">Fund Wallet</span>
+          </a>
+        </li>
+        <li>
+          <a href="#BuyAirtime">
+            <i class="bx bx-phone"></i>
+            <span class="text">Buy Airtime</span>
+          </a>
+        </li>
+        <li>
+          <a href="#BuyData">
+            <i class="bx bx-data"></i>
+            <span class="text">Buy Data</span>
+          </a>
+        </li>
+      </ul>
+      <ul class="side-menu">
+        <li>
+          <a href="index.html" class="logout">
+            <i class="bx bxs-log-out-circle"></i>
+            <span class="text">log Out</span>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <section id="content">
+      <!-- NAVBAR -->
+      <nav>
+        <i class="bx bx-menu"></i>
+        <a href="#" class="nav-link">Categories</a>
+        <form action="#">
+          <div class="form-input">
+            <h1>
+              Welcome,
+              <?php echo $name; ?>!
+            </h1>
+          </div>
+        </form>
+      </nav>
+
+      <!-- Trigger Button -->
+    <button
+      onclick="openModal()"
+      class="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow hover:bg-blue-700 transition"
+    >
+      Open Payment Form
+    </button>
+
+    <!-- Modal -->
+    <div
+      id="cardModal"
+      class="fixed inset-0 z-50 bg-black bg-opacity-50 hidden items-center justify-center"
+    >
+      <div
+        class="bg-white w-full max-w-md rounded-xl shadow-lg p-6 md:p-8 relative"
+      >
+        <!-- Close Button -->
+        <button
+          onclick="closeModal()"
+          class="absolute top-3 right-4 text-gray-400 hover:text-red-500 text-xl"
+        >
+          &times;
+        </button>
+
+        <h2 class="text-2xl font-bold text-gray-800 text-center mb-6">
+          Enter Card Details
+        </h2>
+
+        <form id="cardForm" novalidate class="space-y-6">
+          <!-- Full Name -->
+          <div class="relative">
+            <label
+              for="fullName"
+              class="block text-sm font-medium text-gray-700 mb-1"
+              >Full Name</label
+            >
+            <div class="relative">
+              <span
+                class="absolute inset-y-0 left-3 flex items-center text-gray-400"
+              >
+                <i class="fas fa-user"></i>
+              </span>
+              <input
+                id="fullName"
+                name="fullName"
+                type="text"
+                placeholder="John Doe"
+                class="pl-10 pr-4 py-2 w-full rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+                autocomplete="cc-name"
+              />
+            </div>
+            <p id="fullNameError" class="text-sm text-red-600 mt-1 hidden">
+              Please enter a valid cardholder name.
+            </p>
+          </div>
+
+          <!-- Card Number -->
+          <div class="relative">
+            <label
+              for="cardNumber"
+              class="block text-sm font-medium text-gray-700 mb-1"
+              >Card Number</label
+            >
+            <div class="relative">
+              <span
+                class="absolute inset-y-0 left-3 flex items-center text-gray-400"
+              >
+                <i class="fas fa-credit-card"></i>
+              </span>
+              <input
+                id="cardNumber"
+                name="cardNumber"
+                type="text"
+                placeholder="1234 5678 9012 3456 789"
+                class="pl-10 pr-4 py-2 w-full rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                maxlength="23"
+                inputmode="numeric"
+                required
+                autocomplete="cc-number"
+              />
+            </div>
+            <p id="cardNumberError" class="text-sm text-red-600 mt-1 hidden">
+              Please enter a valid card number.
+            </p>
+          </div>
+
+          <!-- Expiry and CVC -->
+          <div class="flex gap-4">
+            <div class="flex-1 relative">
+              <label
+                for="expiryDate"
+                class="block text-sm font-medium text-gray-700 mb-1"
+                >Expiry (MM/YY)</label
+              >
+              <div class="relative">
+                <span
+                  class="absolute inset-y-0 left-3 flex items-center text-gray-400"
+                >
+                  <i class="fas fa-calendar-alt"></i>
+                </span>
+                <input
+                  id="expiryDate"
+                  name="expiryDate"
+                  type="text"
+                  placeholder="MM/YY"
+                  class="pl-10 pr-4 py-2 w-full rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  maxlength="5"
+                  inputmode="numeric"
+                  required
+                  autocomplete="cc-exp"
+                />
+              </div>
+              <p id="expiryDateError" class="text-sm text-red-600 mt-1 hidden">
+                Please enter a valid expiry date.
+              </p>
+            </div>
+
+            <div class="flex-1 relative">
+              <label
+                for="cvc"
+                class="block text-sm font-medium text-gray-700 mb-1"
+                >CVC</label
+              >
+              <div class="relative">
+                <span
+                  class="absolute inset-y-0 left-3 flex items-center text-gray-400"
+                >
+                  <i class="fas fa-lock"></i>
+                </span>
+                <input
+                  id="cvc"
+                  name="cvc"
+                  type="text"
+                  placeholder="123"
+                  class="pl-10 pr-4 py-2 w-full rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  maxlength="4"
+                  inputmode="numeric"
+                  required
+                  autocomplete="cc-csc"
+                />
+              </div>
+              <p id="cvcError" class="text-sm text-red-600 mt-1 hidden">
+                Please enter a valid CVC code.
+              </p>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow transition"
+          >
+            Submit Payment
+          </button>
+      <!-- NAVBAR -->
+
+      <!-- MAIN -->
+      <!-- MAIN -->
+    </section>
+    
+        </form>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+      const modal = document.getElementById("cardModal");
+
+      function openModal() {
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+      }
+
+      function closeModal() {
+        modal.classList.remove("flex");
+        modal.classList.add("hidden");
+      }
+
+      // Form validation logic
+      const form = document.getElementById("cardForm");
+
+      function luhnCheck(num) {
+        let sum = 0,
+          toggle = false;
+        for (let i = num.length - 1; i >= 0; i--) {
+          let digit = parseInt(num[i], 10);
+          if (toggle) {
+            digit *= 2;
+            if (digit > 9) digit -= 9;
+          }
+          sum += digit;
+          toggle = !toggle;
+        }
+        return sum % 10 === 0;
+      }
+
+      function isValidName(name) {
+        return /^[a-zA-Z]+(\s+[a-zA-Z]+)+$/.test(name.trim());
+      }
+
+      function isValidCardNumber(number) {
+        const sanitized = number.replace(/\s+/g, "");
+        return /^\d{13,19}$/.test(sanitized) && luhnCheck(sanitized);
+      }
+
+      function isValidExpiryDate(value) {
+        if (!/^\d{2}\/\d{2}$/.test(value)) return false;
+        const [monthStr, yearStr] = value.split("/");
+        const month = parseInt(monthStr, 10);
+        const year = parseInt("20" + yearStr, 10);
+        if (month < 1 || month > 12) return false;
+        const now = new Date();
+        const expiry = new Date(year, month - 1, 1);
+        const endOfMonth = new Date(year, month, 0);
+        return endOfMonth >= now;
+      }
+
+      function isValidCVC(cvc) {
+        return /^\d{3,4}$/.test(cvc);
+      }
+
+      function setError(input, message) {
+        input.classList.add("error");
+        const errorElement = document.getElementById(input.id + "Error");
+        errorElement.classList.remove("hidden");
+        errorElement.textContent = message;
+      }
+
+      function clearError(input) {
+        input.classList.remove("error");
+        const errorElement = document.getElementById(input.id + "Error");
+        errorElement.classList.add("hidden");
+        errorElement.textContent = "";
+      }
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const { fullName, cardNumber, expiryDate, cvc } = form;
+        let valid = true;
+
+        if (!isValidName(fullName.value)) {
+          setError(fullName, "Please enter a valid cardholder name.");
+          valid = false;
+        } else clearError(fullName);
+
+        if (!isValidCardNumber(cardNumber.value)) {
+          setError(cardNumber, "Please enter a valid card number.");
+          valid = false;
+        } else clearError(cardNumber);
+
+        if (!isValidExpiryDate(expiryDate.value)) {
+          setError(expiryDate, "Please enter a valid expiry date.");
+          valid = false;
+        } else clearError(expiryDate);
+
+        if (!isValidCVC(cvc.value)) {
+          setError(cvc, "Please enter a valid CVC code.");
+          valid = false;
+        } else clearError(cvc);
+
+        if (valid) {
+          alert("Payment info is valid. Proceeding with verification.");
+          closeModal();
+        }
+      });
+
+      // Input mask for card number
+      form.cardNumber.addEventListener("input", (e) => {
+        let value = e.target.value.replace(/\D/g, "").substring(0, 19);
+        e.target.value = value.replace(/(.{4})/g, "$1 ").trim();
+      });
+
+      // Input mask for expiry
+      form.expiryDate.addEventListener("input", (e) => {
+        let value = e.target.value.replace(/\D/g, "").substring(0, 4);
+        if (value.length >= 3) {
+          value = value.substring(0, 2) + "/" + value.substring(2);
+        }
+        e.target.value = value;
+      });
+    </script>
+  </body>
+</html>
